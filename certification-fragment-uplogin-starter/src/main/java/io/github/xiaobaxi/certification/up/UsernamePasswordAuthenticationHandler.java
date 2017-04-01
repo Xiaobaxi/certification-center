@@ -1,9 +1,6 @@
 package io.github.xiaobaxi.certification.up;
 
-import io.github.xiaobaxi.certification.core.AuthenticationHandler;
-import io.github.xiaobaxi.certification.core.Credentials;
-import io.github.xiaobaxi.certification.core.DefaultPrincipal;
-import io.github.xiaobaxi.certification.core.Principal;
+import io.github.xiaobaxi.certification.core.*;
 
 /**
  * @author fangzhibin
@@ -19,27 +16,12 @@ public class UsernamePasswordAuthenticationHandler implements AuthenticationHand
     }
 
     @Override
-    public boolean authenticate(Credentials credentials) {
+    public HandlerResult authenticate(Credentials credentials) {
         UsernamePasswordCredentials c = (UsernamePasswordCredentials) credentials;
         if ("admin".equals(c.getUsername()) && "admin".equals(c.getPassword())) {
-            return true;
+            return new DefaultHandlerResult(this.getClass().getCanonicalName(), credentials, new DefaultPrincipal(c.getUsername()), null, true);
         } else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean supports(Credentials credentials) {
-        return true;
-    }
-
-    @Override
-    public Principal authenticateAndObtainPrincipal(Credentials credentials) {
-        UsernamePasswordCredentials c = (UsernamePasswordCredentials) credentials;
-        if ("admin".equals(c.getUsername()) && "12345".equals(c.getPassword())) {
-            return new DefaultPrincipal(c.getUsername());
-        } else {
-            return Principal.NOT_PERMMITED;
+            return new DefaultHandlerResult(this.getClass().getCanonicalName(), credentials, new DefaultPrincipal(c.getUsername()), null, false);
         }
     }
 

@@ -15,11 +15,6 @@ public class UsernamePasswordCredentialResolver implements CredentialResolver {
     }
 
     @Override
-    public boolean supports(Credentials credentials) {
-        return true;
-    }
-
-    @Override
     public int getOrder() {
         return 0;
     }

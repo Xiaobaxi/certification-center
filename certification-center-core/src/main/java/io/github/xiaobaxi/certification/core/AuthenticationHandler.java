@@ -6,9 +6,5 @@ package io.github.xiaobaxi.certification.core;
  */
 public interface AuthenticationHandler extends Ordered {
 
-    boolean authenticate(Credentials credentials);
-
-    Principal authenticateAndObtainPrincipal(Credentials credentials);
-
-    boolean supports(Credentials credentials);
+    HandlerResult authenticate(Credentials credentials);
 }

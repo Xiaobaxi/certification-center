@@ -1,9 +1,11 @@
 package io.github.xiaobaxi.certification.auth;
 
-import io.github.xiaobaxi.certification.core.AuthenticationHandler;
-import io.github.xiaobaxi.certification.core.AuthenticationMangerAdapter;
-import io.github.xiaobaxi.certification.core.Credentials;
-import io.github.xiaobaxi.certification.core.Principal;
+import io.github.xiaobaxi.certification.core.*;
+import io.github.xiaobaxi.certification.exception.CertificateException;
+import io.github.xiaobaxi.certification.exception.CertificationCenterException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author fangzhibin
@@ -11,29 +13,20 @@ import io.github.xiaobaxi.certification.core.Principal;
 public class AuthenticationManagerImpl extends AuthenticationMangerAdapter {
 
     @Override
-    public boolean authenticateInternal(Credentials credentials) {
-        /*
-         * 默认第一个支持的handler起效
-         */
-        for(AuthenticationHandler handler : authenticationHandlers) {
-            if(handler.supports(credentials)) {
-                return handler.authenticate(credentials);
-            }
-        }
-        return false;
-    }
+    public Principal authenticate(Credentials credentials) throws CertificateException {
+        List<CertificationCenterException> handlerErrors = new ArrayList<>();
 
-    @Override
-    public Principal authenticateAndObtainPrincipalInternal(Credentials credentials) {
-        /*
-         * 默认第一个支持的handler起效
-         */
-        for(AuthenticationHandler handler : authenticationHandlers) {
-            if(handler.supports(credentials)) {
-                return handler.authenticateAndObtainPrincipal(credentials);
+        for(AuthenticationHandleStrategy strategy : strategies) {
+            if(strategy.supports(credentials)) {
+                try {
+                    HandlerResult hr = strategy.authenticate(credentials);
+                    return hr.getPrincipal();
+                } catch (CertificationCenterException e) {
+                    handlerErrors.add(e);
+                }
             }
         }
-        return Principal.NOT_PERMMITED;
+        throw new CertificateException(handlerErrors);
     }
 
 }

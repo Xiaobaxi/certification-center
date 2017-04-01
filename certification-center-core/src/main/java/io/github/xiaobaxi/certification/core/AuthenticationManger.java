@@ -1,15 +1,15 @@
 package io.github.xiaobaxi.certification.core;
 
+import io.github.xiaobaxi.certification.exception.CertificationCenterException;
+
+import java.security.cert.Certificate;
+
 /**
  * @author fangzhibin
  */
 public interface AuthenticationManger {
 
-    boolean authenticate(Credentials credentials);
+    Principal authenticate(Credentials credentials) throws CertificationCenterException;
 
-    Principal authenticateAndObtainPrincipal(Credentials credentials);
-
-    void registerHandler(AuthenticationHandler handler);
-
-    void registerCredentialResolver(CredentialResolver resolver);
+    void registerHandleStrategy(AuthenticationHandleStrategy strategy);
 }
