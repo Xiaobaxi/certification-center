@@ -21,10 +21,10 @@ import java.util.Map;
  * @author fangzhibin
  */
 @ControllerAdvice
-public class AuthCenterControllerAdvice {
+public class CertificationCenterControllerAdvice {
     private final ObjectMapper mapper;
 
-    public AuthCenterControllerAdvice(ObjectMapper mapper) {
+    public CertificationCenterControllerAdvice(ObjectMapper mapper) {
         this.mapper = mapper;
     }
 

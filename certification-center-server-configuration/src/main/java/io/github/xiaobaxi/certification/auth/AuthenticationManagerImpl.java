@@ -16,7 +16,7 @@ public class AuthenticationManagerImpl extends AuthenticationMangerAdapter {
     public Principal authenticate(Credentials credentials) throws CertificateException {
         List<CertificationCenterException> handlerErrors = new ArrayList<>();
 
-        for(AuthenticationHandleStrategy strategy : strategies) {
+        for(AuthenticationHandlerStrategy strategy : strategies) {
             if(strategy.supports(credentials)) {
                 try {
                     HandlerResult hr = strategy.authenticate(credentials);

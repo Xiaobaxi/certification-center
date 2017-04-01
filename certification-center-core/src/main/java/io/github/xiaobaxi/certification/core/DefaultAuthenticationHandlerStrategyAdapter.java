@@ -11,7 +11,7 @@ import java.util.List;
  * 默认的strategy adapter
  * @author fangzhibin
  */
-public abstract class DefaultAuthenticationHandleStrategyAdapter implements AuthenticationHandleStrategy {
+public abstract class DefaultAuthenticationHandlerStrategyAdapter implements AuthenticationHandlerStrategy {
     protected List<AuthenticationHandler> authenticationHandlers = new ArrayList<>();
     protected List<CredentialResolver> credentialResolvers = new ArrayList<>();
 

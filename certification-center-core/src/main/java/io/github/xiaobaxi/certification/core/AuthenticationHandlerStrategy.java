@@ -5,7 +5,7 @@ import io.github.xiaobaxi.certification.exception.CertificationCenterException;
 /**
  * @author fangzhibin
  */
-public interface AuthenticationHandleStrategy extends Ordered {
+public interface AuthenticationHandlerStrategy extends Ordered {
 
     void registerHandler(AuthenticationHandler handler);
 
